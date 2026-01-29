@@ -1,3 +1,25 @@
+# Graspire (Grafana + Aspire) — Proof of Concept
+
+> **This is a proof-of-concept fork of [dotnet/aspire](https://github.com/dotnet/aspire)** that replaces the built-in Traces, Metrics, and Structured Logs dashboard pages with embedded [Grafana](https://grafana.com/) Explore views backed by the LGTM stack (Loki, Grafana, Tempo, Mimir/Prometheus).
+
+## Running the playground sample
+
+Prerequisites: .NET 10 SDK, Docker
+
+```sh
+dotnet run --project playground/grafana/Grafana.AppHost/
+```
+
+This will:
+
+1. Start a `grafana/otel-lgtm` container with Tempo, Loki, and Prometheus
+2. Launch the Aspire dashboard with Grafana embedded
+3. Start a sample API service that sends OTEL telemetry to Grafana
+
+Open the dashboard login URL printed in the console. The **Traces**, **Metrics**, and **Structured Logs** tabs will show Grafana Explore views instead of the built-in UI. The **Grafana** tab shows the full Grafana dashboard.
+
+---
+
 # Aspire
 
 [![Tests](https://github.com/dotnet/aspire/actions/workflows/tests.yml/badge.svg?branch=main&event=push)](https://github.com/dotnet/aspire/actions/workflows/tests.yml)
