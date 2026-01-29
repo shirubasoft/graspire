@@ -22,7 +22,7 @@ public static class GrafanaBuilderExtensions
     /// <param name="otlpGrpcPort">The host port for OTLP gRPC ingestion. Defaults to 4317.</param>
     /// <param name="otlpHttpPort">The host port for OTLP HTTP ingestion. Defaults to 4318.</param>
     /// <returns>The resource builder for the Grafana container.</returns>
-    public static IResourceBuilder<ContainerResource> AddGrafana(
+    public static IResourceBuilder<ContainerResource> UseGrafana(
         this IDistributedApplicationBuilder builder,
         string name = "grafana",
         int grafanaPort = 3000,
@@ -30,13 +30,14 @@ public static class GrafanaBuilderExtensions
         int otlpHttpPort = 4318)
     {
         var grafana = builder.AddContainer(name, "grafana/otel-lgtm")
-            .WithImageTag("0.16.0")
+            .WithImageTag("0.11.0")
             .WithHttpEndpoint(port: grafanaPort, targetPort: 3000, name: "grafana-ui")
             .WithEndpoint(port: otlpGrpcPort, targetPort: 4317, name: "otlp-grpc", scheme: "http")
             .WithEndpoint(port: otlpHttpPort, targetPort: 4318, name: "otlp-http", scheme: "http")
             .WithLifetime(ContainerLifetime.Persistent)
             .WithEnvironment("GF_SECURITY_ALLOW_EMBEDDING", "true")
-            .WithEnvironment("GF_AUTH_ANONYMOUS_ENABLED", "true");
+            .WithEnvironment("GF_AUTH_ANONYMOUS_ENABLED", "true")
+            .WithEnvironment("GF_AUTH_ANONYMOUS_ORG_ROLE", "Admin");
 
         // Override the OTLP endpoint so all child services send telemetry to Grafana's OTel Collector
         // instead of the Aspire dashboard's built-in OTLP receiver.

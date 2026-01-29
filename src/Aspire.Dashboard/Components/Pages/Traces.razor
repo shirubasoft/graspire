@@ -13,6 +13,16 @@
 
 @implements IDisposable
 
+@if (DashboardOptions.Value.Grafana.IsEnabled)
+{
+    <PageTitle>Traces - Aspire</PageTitle>
+    <div class="page-content-container" style="height: 100%;">
+        <GrafanaExplore DatasourceUid="tempo" DatasourceType="tempo" />
+    </div>
+}
+else
+{
+
 <PageTitle>
     <ApplicationName
         AdditionalText="@PageViewModel.SelectedResource.Id?.ReplicaSetName"
@@ -198,3 +208,4 @@
         </FooterSection>
     </AspirePageContentLayout>
 </div>
+}

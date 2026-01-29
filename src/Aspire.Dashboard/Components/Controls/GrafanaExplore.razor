@@ -1,0 +1,25 @@
+@using Aspire.Dashboard.Configuration
+@using Microsoft.Extensions.Options
+@inject IOptions<DashboardOptions> DashboardOptions
+
+@{
+    var grafanaUrl = DashboardOptions.Value.Grafana.Url;
+    var panes = System.Text.Json.JsonSerializer.Serialize(new Dictionary<string, object>
+    {
+        ["default"] = new { datasource = DatasourceUid, queries = new[] { new { refId = "A", datasource = new { type = DatasourceType, uid = DatasourceUid } } } }
+    });
+    var encodedPanes = Uri.EscapeDataString(panes);
+    var exploreUrl = $"{grafanaUrl}/explore?schemaVersion=1&orgId=1&panes={encodedPanes}";
+}
+
+<iframe src="@exploreUrl"
+        style="width: 100%; height: 100%; border: none;"
+        title="Grafana Explore - @DatasourceUid" />
+
+@code {
+    [Parameter, EditorRequired]
+    public string DatasourceUid { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public string DatasourceType { get; set; } = default!;
+}

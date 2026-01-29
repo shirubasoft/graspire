@@ -12,6 +12,16 @@
 @inject IStringLocalizer<Dialogs> DialogsLoc
 @inject IStringLocalizer<AIPrompts> AIPromptsLoc
 
+@if (DashboardOptions.Value.Grafana.IsEnabled)
+{
+    <PageTitle>Structured Logs - Aspire</PageTitle>
+    <div class="page-content-container" style="height: 100%;">
+        <GrafanaExplore DatasourceUid="loki" DatasourceType="loki" />
+    </div>
+}
+else
+{
+
 <PageTitle>
     <ApplicationName
         AdditionalText="@PageViewModel.SelectedResource.Id?.ReplicaSetName"
@@ -190,3 +200,4 @@
         </FooterSection>
     </AspirePageContentLayout>
 </div>
+}

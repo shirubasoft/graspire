@@ -3,7 +3,7 @@
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddGrafana();
+builder.UseGrafana();
 
 builder.AddProject<Projects.Grafana_ApiService>("api")
     .WithExternalHttpEndpoints();

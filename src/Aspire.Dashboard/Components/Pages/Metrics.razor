@@ -6,6 +6,19 @@
 @using Aspire.Dashboard.Resources
 @inject IStringLocalizer<Dashboard.Resources.Metrics> Loc
 @inject IStringLocalizer<ControlsStrings> ControlsStringsLoc
+@using Aspire.Dashboard.Configuration
+@using Microsoft.Extensions.Options
+@inject IOptions<DashboardOptions> DashboardOptions
+
+@if (DashboardOptions.Value.Grafana.IsEnabled)
+{
+    <PageTitle>Metrics - Aspire</PageTitle>
+    <div class="page-content-container" style="height: 100%;">
+        <GrafanaExplore DatasourceUid="prometheus" DatasourceType="prometheus" />
+    </div>
+}
+else
+{
 
 <PageTitle>
     @{
@@ -176,3 +189,4 @@
         </MainSection>
     </AspirePageContentLayout>
 </div>
+}
