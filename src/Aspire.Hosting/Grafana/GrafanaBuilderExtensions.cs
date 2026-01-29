@@ -30,11 +30,13 @@ public static class GrafanaBuilderExtensions
         int otlpHttpPort = 4318)
     {
         var grafana = builder.AddContainer(name, "grafana/otel-lgtm")
-            .WithImageTag("latest")
+            .WithImageTag("0.16.0")
             .WithHttpEndpoint(port: grafanaPort, targetPort: 3000, name: "grafana-ui")
             .WithEndpoint(port: otlpGrpcPort, targetPort: 4317, name: "otlp-grpc", scheme: "http")
             .WithEndpoint(port: otlpHttpPort, targetPort: 4318, name: "otlp-http", scheme: "http")
-            .WithLifetime(ContainerLifetime.Persistent);
+            .WithLifetime(ContainerLifetime.Persistent)
+            .WithEnvironment("GF_SECURITY_ALLOW_EMBEDDING", "true")
+            .WithEnvironment("GF_AUTH_ANONYMOUS_ENABLED", "true");
 
         // Override the OTLP endpoint so all child services send telemetry to Grafana's OTel Collector
         // instead of the Aspire dashboard's built-in OTLP receiver.

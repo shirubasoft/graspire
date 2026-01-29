@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Aspire.Dashboard.Authentication.Connection;
+using Aspire.Dashboard.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Aspire.Dashboard.Model;
 
@@ -17,26 +19,28 @@ internal sealed class BrowserSecurityHeadersMiddleware
     private readonly string _cspContentHttp;
     private readonly string _cspContentHttps;
 
-    public BrowserSecurityHeadersMiddleware(RequestDelegate next, IHostEnvironment environment)
+    public BrowserSecurityHeadersMiddleware(RequestDelegate next, IHostEnvironment environment, IOptions<DashboardOptions> dashboardOptions)
     {
         _next = next;
 
-        _cspContentHttp = GenerateCspContent(environment, isHttps: false);
-        _cspContentHttps = GenerateCspContent(environment, isHttps: true);
+        var grafanaUrl = dashboardOptions.Value.Grafana.Url;
+        _cspContentHttp = GenerateCspContent(environment, isHttps: false, grafanaUrl);
+        _cspContentHttps = GenerateCspContent(environment, isHttps: true, grafanaUrl);
     }
 
-    private static string GenerateCspContent(IHostEnvironment environment, bool isHttps)
+    private static string GenerateCspContent(IHostEnvironment environment, bool isHttps, string? grafanaUrl)
     {
         // Based on Blazor documentation recommendations:
         // https://learn.microsoft.com/aspnet/core/blazor/security/content-security-policy#server-side-blazor-apps
         // Changes:
         // - style-src adds inline styles as they're used extensively by Blazor FluentUI.
         // - frame-src none added to prevent nesting in iframe.
+        var frameSrc = string.IsNullOrEmpty(grafanaUrl) ? "'none'" : grafanaUrl;
         var content = "base-uri 'self'; " +
             "object-src 'none'; " +
             "script-src 'self'; " +
             "style-src 'self' 'unsafe-inline'; " +
-            "frame-src 'none';";
+            $"frame-src {frameSrc};";
 
         if (isHttps)
         {
