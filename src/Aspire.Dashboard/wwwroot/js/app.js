@@ -282,6 +282,8 @@ window.registerGlobalKeydownListener = function (shortcutManager) {
                     return 230;
                 case "m": // go to metrics
                     return 240;
+                case "g": // go to grafana
+                    return 250;
             }
         }
 

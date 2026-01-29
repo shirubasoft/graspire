@@ -20,6 +20,7 @@ public sealed class DashboardOptions
     public DebugSessionOptions DebugSession { get; set; } = new();
     public UIOptions UI { get; set; } = new();
     public AIOptions AI { get; set; } = new();
+    public GrafanaOptions Grafana { get; set; } = new();
 }
 
 // Don't set values after validating/parsing options.
@@ -379,6 +380,14 @@ public sealed class ClaimAction
 public sealed class AIOptions
 {
     public bool? Disabled { get; set; }
+}
+
+public sealed class GrafanaOptions
+{
+    public string? Url { get; set; }
+
+    [MemberNotNullWhen(true, nameof(Url))]
+    public bool IsEnabled => !string.IsNullOrEmpty(Url);
 }
 
 public sealed class DebugSessionOptions

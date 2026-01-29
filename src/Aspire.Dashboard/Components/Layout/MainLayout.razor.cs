@@ -341,7 +341,8 @@ public partial class MainLayout : IGlobalKeydownListener, IAsyncDisposable
         AspireKeyboardShortcut.GoToConsoleLogs,
         AspireKeyboardShortcut.GoToStructuredLogs,
         AspireKeyboardShortcut.GoToTraces,
-        AspireKeyboardShortcut.GoToMetrics
+        AspireKeyboardShortcut.GoToMetrics,
+        AspireKeyboardShortcut.GoToGrafana
     };
 
     public async Task OnPageKeyDownAsync(AspireKeyboardShortcut shortcut)
@@ -368,6 +369,9 @@ public partial class MainLayout : IGlobalKeydownListener, IAsyncDisposable
                 break;
             case AspireKeyboardShortcut.GoToMetrics:
                 NavigationManager.NavigateTo(DashboardUrls.MetricsUrl());
+                break;
+            case AspireKeyboardShortcut.GoToGrafana:
+                NavigationManager.NavigateTo(DashboardUrls.GrafanaUrl());
                 break;
         }
     }

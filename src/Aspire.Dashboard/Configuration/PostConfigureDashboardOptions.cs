@@ -83,6 +83,11 @@ public sealed class PostConfigureDashboardOptions : IPostConfigureOptions<Dashbo
 
         options.AI.Disabled = _configuration.GetBool(DashboardConfigNames.DashboardAIDisabledName.ConfigKey);
 
+        if (_configuration[DashboardConfigNames.DashboardGrafanaUrlName.ConfigKey] is { Length: > 0 } grafanaUrl)
+        {
+            options.Grafana.Url = grafanaUrl;
+        }
+
         if (_configuration.GetBool(DashboardConfigNames.Legacy.DashboardOtlpSuppressUnsecuredTelemetryMessageName.ConfigKey) is { } suppressUnsecuredTelemetryMessage)
         {
             options.Otlp.SuppressUnsecuredMessage = suppressUnsecuredTelemetryMessage;

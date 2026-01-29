@@ -1,6 +1,9 @@
-﻿@using Aspire.Dashboard.Resources
+﻿@using Aspire.Dashboard.Configuration
+@using Aspire.Dashboard.Resources
+@using Microsoft.Extensions.Options
 @inject IStringLocalizer<Layout> Loc
 @inject IDashboardClient DashboardClient
+@inject IOptions<DashboardOptions> DashboardOptions
 
 <FluentAppBar PopoverShowSearch="false" Class="desktop-nav-menu">
     @if (DashboardClient.IsEnabled)
@@ -29,4 +32,12 @@
         IconRest="MetricsIcon()"
         IconActive="MetricsIcon(active: true)"
         Text="@Loc[nameof(Layout.NavMenuMetricsTab)]" />
+    @if (DashboardOptions.Value.Grafana.IsEnabled)
+    {
+        <FluentAppBarItem
+            Href="@DashboardUrls.GrafanaUrl()"
+            IconRest="GrafanaIcon()"
+            IconActive="GrafanaIcon(active: true)"
+            Text="@Loc[nameof(Layout.NavMenuGrafanaTab)]" />
+    }
 </FluentAppBar>

@@ -307,6 +307,11 @@
         <target state="translated">前往 [主控台記錄]</target>
         <note />
       </trans-unit>
+      <trans-unit id="HelpDialogGoToGrafana">
+        <source>Go to Grafana</source>
+        <target state="new">Go to Grafana</target>
+        <note />
+      </trans-unit>
       <trans-unit id="HelpDialogGoToHelp">
         <source>Go to Help</source>
         <target state="translated">前往 [說明]</target>

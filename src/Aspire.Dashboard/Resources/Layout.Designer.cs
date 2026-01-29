@@ -185,7 +185,16 @@ namespace Aspire.Dashboard.Resources {
                 return ResourceManager.GetString("NavMenuMetricsTab", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Grafana.
+        /// </summary>
+        public static string NavMenuGrafanaTab {
+            get {
+                return ResourceManager.GetString("NavMenuGrafanaTab", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Resources.
         /// </summary>

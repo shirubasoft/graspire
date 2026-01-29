@@ -1,0 +1,22 @@
+@page "/grafana"
+
+@using Aspire.Dashboard.Configuration
+@using Aspire.Dashboard.Resources
+@using Microsoft.Extensions.Options
+@inject IStringLocalizer<Layout> Loc
+@inject IOptions<DashboardOptions> DashboardOptions
+
+<PageTitle>Grafana - Aspire</PageTitle>
+
+@if (DashboardOptions.Value.Grafana.IsEnabled)
+{
+    <iframe src="@DashboardOptions.Value.Grafana.Url"
+            style="width: 100%; height: 100%; border: none;"
+            title="Grafana" />
+}
+else
+{
+    <div style="padding: 20px;">
+        <p>Grafana is not configured. Add <code>builder.AddGrafana()</code> to your AppHost to enable Grafana observability.</p>
+    </div>
+}

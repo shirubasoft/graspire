@@ -31,6 +31,10 @@ public partial class DesktopNavMenu : ComponentBase, IDisposable
         active ? new Icons.Filled.Size24.ChartMultiple()
                   : new Icons.Regular.Size24.ChartMultiple();
 
+    internal static Icon GrafanaIcon(bool active = false) =>
+        active ? new Icons.Filled.Size24.DataArea()
+                  : new Icons.Regular.Size24.DataArea();
+
     [Inject]
     public required NavigationManager NavigationManager { get; init; }
 

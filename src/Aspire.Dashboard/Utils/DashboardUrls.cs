@@ -13,6 +13,7 @@ internal static class DashboardUrls
     public const string MetricsBasePath = "metrics";
     public const string StructuredLogsBasePath = "structuredlogs";
     public const string TracesBasePath = "traces";
+    public const string GrafanaBasePath = "grafana";
     public const string LoginBasePath = "login";
     public const string HealthBasePath = "health";
 
@@ -148,6 +149,8 @@ internal static class DashboardUrls
 
         return url;
     }
+
+    public static string GrafanaUrl() => $"/{GrafanaBasePath}";
 
     public static string LoginUrl(string? returnUrl = null, string? token = null)
     {

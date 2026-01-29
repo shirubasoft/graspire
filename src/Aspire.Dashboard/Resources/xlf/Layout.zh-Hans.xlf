@@ -67,6 +67,11 @@
         <target state="translated">控制台</target>
         <note />
       </trans-unit>
+      <trans-unit id="NavMenuGrafanaTab">
+        <source>Grafana</source>
+        <target state="new">Grafana</target>
+        <note />
+      </trans-unit>
       <trans-unit id="NavMenuMetricsTab">
         <source>Metrics</source>
         <target state="translated">指标</target>

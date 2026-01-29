@@ -626,7 +626,16 @@ namespace Aspire.Dashboard.Resources {
                 return ResourceManager.GetString("HelpDialogGoToMetrics", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Grafana.
+        /// </summary>
+        public static string HelpDialogGoToGrafana {
+            get {
+                return ResourceManager.GetString("HelpDialogGoToGrafana", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Go to Resources.
         /// </summary>

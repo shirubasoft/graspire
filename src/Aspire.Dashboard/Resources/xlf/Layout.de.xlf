@@ -67,6 +67,11 @@
         <target state="translated">Konsole</target>
         <note />
       </trans-unit>
+      <trans-unit id="NavMenuGrafanaTab">
+        <source>Grafana</source>
+        <target state="new">Grafana</target>
+        <note />
+      </trans-unit>
       <trans-unit id="NavMenuMetricsTab">
         <source>Metrics</source>
         <target state="translated">Metriken</target>

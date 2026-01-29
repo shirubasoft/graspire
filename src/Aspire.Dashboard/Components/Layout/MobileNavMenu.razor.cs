@@ -3,9 +3,11 @@
 
 using System.Text.RegularExpressions;
 using Aspire.Dashboard.Components.CustomIcons;
+using Aspire.Dashboard.Configuration;
 using Aspire.Dashboard.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Icons = Microsoft.FluentUI.AspNetCore.Components.Icons;
 
@@ -27,6 +29,9 @@ public partial class MobileNavMenu : ComponentBase
 
     [Inject]
     public required IJSRuntime JS { get; init; }
+
+    [Inject]
+    public required IOptions<DashboardOptions> DashboardOptions { get; init; }
 
     private Task NavigateToAsync(string url)
     {
@@ -73,6 +78,16 @@ public partial class MobileNavMenu : ComponentBase
             DesktopNavMenu.MetricsIcon(),
             LinkMatchRegex: GetNonIndexPageRegex(DashboardUrls.MetricsUrl())
         );
+
+        if (DashboardOptions.Value.Grafana.IsEnabled)
+        {
+            yield return new MobileNavMenuEntry(
+                Loc[nameof(Resources.Layout.NavMenuGrafanaTab)],
+                () => NavigateToAsync(DashboardUrls.GrafanaUrl()),
+                DesktopNavMenu.GrafanaIcon(),
+                LinkMatchRegex: GetNonIndexPageRegex(DashboardUrls.GrafanaUrl())
+            );
+        }
 
         yield return new MobileNavMenuEntry(
             Loc[nameof(Resources.Layout.MainLayoutAspireRepoLink)],
